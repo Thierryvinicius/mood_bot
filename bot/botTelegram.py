@@ -15,6 +15,9 @@ import os
 import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import sys
+from src.model import Net
+from src.config import INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE
+import pickle
 
 # Lê o token como parâmetro na linha de comando
 # Você pode também trocar diretamente aqui sys.argv[1] pelo
@@ -23,11 +26,21 @@ import sys
 #MEU_TOKEN=sys.argv[1]
 MEU_TOKEN='6616924477:AAHzgajvLT2Xp62gvn4OBnYIZ6R9LCsnVlg'
 
-# Pasta para imagens enviadas pelo usuário
-pasta_imgs='./Telegram_Imagens_Recebidas/' 
-
 print('Carregando BOT usando o token ',MEU_TOKEN)
 
+#Paths
+MODEL_PATH = '../src/models/text_classifier.pth'
+VECTOR_PATH = '..src/models/tfidf_vectorizer.pkl'
+
+
+#Load the model
+model = Net(INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE)
+model.load_state_dict(torch.load(MODEL_PATH))
+model.eval()
+
+#Load the vector
+with open(VECTOR_PATH) as f:
+    vectorizer = pickle.load(f)
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -41,46 +54,19 @@ logger = logging.getLogger(__name__)
 # Resposta para quando o usuário digita um texto.
 # Apenas responde com o mesmo texto que o usuário entrou
 def echo(update, context):
-    resposta='Você disse: '+update.message.text+' ?'
+    user_message = update.message.text
+    sentiment = predict_sentiment(model,vectorizer, user_message)
+    answer = f"A análise de sentimento para a mensagem é '{user_message}' é: '{sentiment}'"
     update.message.reply_text(resposta)
-
-# Resposta para quando o usuário mandar uma imagem
-def processa_imagem(update, context):
-    
-    # Entra na pasta onde ficarão as imagens 
-    os.chdir(pasta_imgs)
-    
-    # Pega o identificador da última imagem enviada 
-    identificador = update.message.photo[-1].file_id
-    
-    # Pega o arquivo
-    arquivo = context.bot.get_file(identificador)
-    
-    # Baixa o arquivo
-    nome_imagem = arquivo.download()
-    print('Processando arquivo ',pasta_imgs+nome_imagem)
-    
-    # Abre o arquivo como sendo uma imagem usando o PIL
-    imagem = Image.open(nome_imagem).convert('RGB')
-    
-    # Pega algumas estatísticas dos valores dos pixels da imagem
-    stat = ImageStat.Stat(imagem)
-    
-    # Devolve para o usuário uma mensagem de texto com duas
-    # das estatísticas calculadas
-    update.message.reply_text(f'Estatísticas da Imagem: valor médio dos pixels no canais R, G e B = {stat.mean}, desvio padrão = {stat.stddev}')
-
-
 
 # Resposta para o comando /start
 def start(update, context):
-    update.message.reply_text('Olá, já comecei, é só escrever qualquer coisa ou mandar uma imagem')
+    update.message.reply_text('Olá, sou o Mood Bot, um bot de análise de sentimento!')
 
 
 # Resposta para o comando /help
 def help(update, context):
-    update.message.reply_text('Eu só sei repetir o que me falam por enquanto')
-
+    update.message.reply_text('Olá, envie uma mensagem e eu irei analisar ela!')
 
 
 # Salva as mensagens de erro
@@ -105,12 +91,6 @@ def main():
 
     # Define a função que vai tratar os textos
     dp.add_handler(MessageHandler(Filters.text, echo))
-
-    # Cria pasta para as imagens enviadas pelo usuário
-    os.makedirs('./Telegram_Imagens_Recebidas',exist_ok=True)
-
-    # Define a função que vai tratar as imagens
-    dp.add_handler(MessageHandler(Filters.photo, processa_imagem))
 
 
     # Define a função que vai tratar os erros
