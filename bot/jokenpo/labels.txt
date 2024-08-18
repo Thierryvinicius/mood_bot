@@ -1,4 +1,0 @@
-0 Fundo
-1 Pedra
-2 Tesoura
-3 Papel
