@@ -23,8 +23,7 @@ import pickle
 # Você pode também trocar diretamente aqui sys.argv[1] pelo
 # seu token no telegram (ver README.md para saber como
 # criar seu bot no telegram)
-#MEU_TOKEN=sys.argv[1]
-MEU_TOKEN='6616924477:AAHzgajvLT2Xp62gvn4OBnYIZ6R9LCsnVlg'
+MEU_TOKEN=sys.argv[1]
 
 print('Carregando BOT usando o token ',MEU_TOKEN)
 
