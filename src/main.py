@@ -4,7 +4,7 @@ import torch
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from model import Net
-from preprocess.py import preprocess_text
+from preprocess import preprocess_text
 from train import train_model
 from inference import predict_sentiment
 from config import INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE
@@ -19,6 +19,12 @@ corpus = preprocess_text(dataset)
 vectorizer = TfidfVectorizer(max_features=INPUT_SIZE, min_df=3, max_df=0.6)
 X = vectorizer.fit_transform(corpus).toarray()
 y = dataset.iloc[:, 1].values
+
+# salvando o vectorizer
+VECTOR_PATH = 'models/tfidf_vectorizer.pkl'
+with open(VECTOR_PATH, 'wb') as f:
+    pickle.dump(vectorizer, f)
+print('VETOR TF-IDF SALVO EM, ', VECTOR_PATH)
 
 # Dividir os dados em treino e teste
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=0)

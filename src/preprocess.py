@@ -1,5 +1,3 @@
-# preprocess.py
-
 import nltk
 import re
 from nltk.corpus import stopwords

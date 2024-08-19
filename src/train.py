@@ -1,6 +1,7 @@
-# train.py
 
 import torch
+import pickle
+import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
 from model import Net
@@ -24,3 +25,7 @@ def train_model(model, X_train, y_train, epochs=EPOCHS, learning_rate=LEARNING_R
 
         if (epoch + 1) % 10 == 0:
             print(f'Epoch [{epoch+1}/{epochs}], Loss: {loss.item():.4f}')
+
+    MODEL_PATH = 'models/text_classifier.pth'
+    torch.save(model.state_dict(), MODEL_PATH)
+    print('MODELO SALVO EM ', MODEL_PATH)
