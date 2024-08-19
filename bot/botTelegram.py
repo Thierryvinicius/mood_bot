@@ -30,8 +30,10 @@ from src.inference import predict_sentiment
 # Você pode também trocar diretamente aqui sys.argv[1] pelo
 # seu token no telegram (ver README.md para saber como
 # criar seu bot no telegram)
-#MEU_TOKEN=sys.argv[1]
-MEU_TOKEN = '6616924477:AAHzgajvLT2Xp62gvn4OBnYIZ6R9LCsnVlg'
+if len(sys.argv) > 1:
+    MEU_TOKEN=sys.argv[1]
+else:
+    MEU_TOKEN = 'SEU_TOKEN'
 
 print('Carregando BOT usando o token ',MEU_TOKEN)
 
