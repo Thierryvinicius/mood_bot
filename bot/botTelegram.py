@@ -19,6 +19,7 @@ import torch
 import pickle
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
 from src.model import Net
 from src.config import INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE
@@ -35,8 +36,8 @@ MEU_TOKEN = '6616924477:AAHzgajvLT2Xp62gvn4OBnYIZ6R9LCsnVlg'
 print('Carregando BOT usando o token ',MEU_TOKEN)
 
 #Path
-MODEL_PATH = 'src/models/text_classifier.pth'
-VECTOR_PATH = 'src/models/tfidf_vectorizer.pkl'
+MODEL_PATH = os.path.abspath('src/models/text_classifier.pth')
+VECTOR_PATH = os.path.abspath('src/models/tfidf_vectorizer.pkl')
 
 
 #Load the model
