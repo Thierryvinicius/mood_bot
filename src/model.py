@@ -1,16 +1,17 @@
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
+from config import INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE
 
 class Net(nn.Module):
-    def __init__(self, input_size, hidden_size, output_size):
+    def __init__(self, INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE):
         super(Net, self).__init__()
-        self.fc1 = nn.Linear(input_size, hidden_size)
-        self.fc2 = nn.Linear(hidden_size, hidden_size)
-        self.fc3 = nn.Linear(hidden_size, output_size)
+        self.fc1 = nn.Linear(INPUT_SIZE, HIDDEN_SIZE)
+        self.fc2 = nn.Linear(HIDDEN_SIZE, HIDDEN_SIZE)
+        self.fc3 = nn.Linear(HIDDEN_SIZE, OUTPUT_SIZE)
 
     def forward(self, x):
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         x = self.fc3(x)
-        return F.log_softmax(x_dim=1)
+        return F.log_softmax(x, dim=1)
