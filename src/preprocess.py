@@ -10,7 +10,7 @@ def preprocess_text(dataset):
     corpus = []
 
     for i in range(len(dataset)):
-        review = re.sub('[^a-zA-Z]', ' ', dataset['Review'][i])
+        review = re.sub('[^a-zA-Z]', ' ', dataset['Phrase'][i])
         review = review.lower()
         review = review.split()
         review = [ps.stem(word) for word in review if word not in set(stopwords.words('english'))]

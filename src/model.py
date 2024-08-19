@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
-from config import INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE
 
 class Net(nn.Module):
     def __init__(self, INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE):

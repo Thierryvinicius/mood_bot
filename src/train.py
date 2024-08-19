@@ -10,6 +10,8 @@ import matplotlib.pyplot as plt
 
 
 def train_model(model, X_train, y_train, X_val, y_val, epochs=EPOCHS, learning_rate=LEARNING_RATE):
+
+
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
     loss_fn = nn.NLLLoss()
 

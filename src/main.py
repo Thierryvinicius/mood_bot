@@ -13,14 +13,21 @@ from config import INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE, TEST_SPLIT, VAL_SPLIT, 
 # Carregar o dataset
 if DATASET_PATH is None:
     dataset = pd.read_csv('https://raw.githubusercontent.com/futurexskill/ml-model-deployment/main/Restaurant_Reviews.tsv.txt', delimiter='\t')
+    dataset.rename(columns={'Review': 'Phrase'}, inplace=True)
 else:
     dataset = pd.read_csv(DATASET_PATH, delimiter='\t')
+    print(dataset.head())
+    print(dataset.columns)
+    dataset.columns = ['Phrase', 'Note']
 # Pré-processar o texto
+
 corpus = preprocess_text(dataset)
 
 # Vetorização TF-IDF
-vectorizer = TfidfVectorizer(max_features=INPUT_SIZE, min_df=3, max_df=0.6)
+vectorizer = TfidfVectorizer(max_features=INPUT_SIZE, min_df=1, max_df=0.8)#voltar para 3 e 0.6 dps
 X = vectorizer.fit_transform(corpus).toarray()
+INPUT_SIZE = X.shape[1]
+print(f'Número de características: {INPUT_SIZE}')
 y = dataset.iloc[:, 1].values
 
 # salvando o vectorizer
