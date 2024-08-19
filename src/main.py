@@ -8,11 +8,13 @@ from model import Net
 from preprocess import preprocess_text
 from train import train_model, model_test
 from inference import predict_sentiment
-from config import INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE, TEST_SPLIT, VAL_SPLIT
+from config import INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE, TEST_SPLIT, VAL_SPLIT, DATASET_PATH
 
 # Carregar o dataset
-dataset = pd.read_csv('https://raw.githubusercontent.com/futurexskill/ml-model-deployment/main/Restaurant_Reviews.tsv.txt', delimiter='\t', quoting=3)
-
+if DATASET_PATH is None:
+    dataset = pd.read_csv('https://raw.githubusercontent.com/futurexskill/ml-model-deployment/main/Restaurant_Reviews.tsv.txt', delimiter='\t')
+else:
+    dataset = pd.read_csv(DATASET_PATH, delimiter='\t')
 # Pré-processar o texto
 corpus = preprocess_text(dataset)
 
