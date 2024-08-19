@@ -26,6 +26,6 @@ def train_model(model, X_train, y_train, epochs=EPOCHS, learning_rate=LEARNING_R
         if (epoch + 1) % 10 == 0:
             print(f'Epoch [{epoch+1}/{epochs}], Loss: {loss.item():.4f}')
 
-    MODEL_PATH = 'models/text_classifier.pth'
-    torch.save(model.state_dict(), MODEL_PATH)
+    MODEL_PATH = 'src/models/'
+    torch.save(model.state_dict(), MODEL_PATH + 'text_classifier.pth')
     print('MODELO SALVO EM ', MODEL_PATH)

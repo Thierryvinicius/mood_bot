@@ -29,13 +29,14 @@ from src.inference import predict_sentiment
 # Você pode também trocar diretamente aqui sys.argv[1] pelo
 # seu token no telegram (ver README.md para saber como
 # criar seu bot no telegram)
-MEU_TOKEN=sys.argv[1]
+#MEU_TOKEN=sys.argv[1]
+MEU_TOKEN = '6616924477:AAHzgajvLT2Xp62gvn4OBnYIZ6R9LCsnVlg'
 
 print('Carregando BOT usando o token ',MEU_TOKEN)
 
-#Paths
-MODEL_PATH = '../src/models/text_classifier.pth'
-VECTOR_PATH = '../src/models/tfidf_vectorizer.pkl'
+#Path
+MODEL_PATH = 'src/models/text_classifier.pth'
+VECTOR_PATH = 'src/models/tfidf_vectorizer.pkl'
 
 
 #Load the model
@@ -44,7 +45,7 @@ model.load_state_dict(torch.load(MODEL_PATH))
 model.eval()
 
 #Load the vector
-with open(VECTOR_PATH) as f:
+with open(VECTOR_PATH, 'rb') as f:
     vectorizer = pickle.load(f)
 
 # Enable logging
