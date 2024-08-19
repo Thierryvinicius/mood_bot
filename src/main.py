@@ -6,9 +6,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from model import Net
 from preprocess import preprocess_text
-from train import train_model
+from train import train_model, model_test
 from inference import predict_sentiment
-from config import INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE, TEST_SPLIT
+from config import INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE, TEST_SPLIT, VAL_SPLIT
 
 # Carregar o dataset
 dataset = pd.read_csv('https://raw.githubusercontent.com/futurexskill/ml-model-deployment/main/Restaurant_Reviews.tsv.txt', delimiter='\t', quoting=3)
@@ -30,13 +30,22 @@ print('VETOR TF-IDF SALVO EM, ', VECTOR_PATH)
 # Dividir os dados em treino e teste
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=TEST_SPLIT, random_state=0)
 
+#dividir os dados do treino em treino e validação
+X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=VAL_SPLIT, random_state=0) #25% dos dados de treino que é 20% do total
+
+
 # Converter para tensores
 X_train_tensor = torch.from_numpy(X_train).float()
-X_test_tensor = torch.from_numpy(X_test).float()
 y_train_tensor = torch.from_numpy(y_train).long()
+X_val_tensor = torch.from_numpy(X_val).float()
+y_val_tensor = torch.from_numpy(y_val).long()
+X_test_tensor = torch.from_numpy(X_test).float()
+y_test_tensor = torch.from_numpy(y_test).long()
+
 
 model = Net(INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE)
-train_model(model, X_train_tensor, y_train_tensor)
+train_model(model, X_train_tensor, y_train_tensor, X_val_tensor, y_val_tensor)
+model_test(model, X_test_tensor, y_test_tensor)
 
 # Testar o modelo com novas amostras
 sample1 = "Great match from Stephen Curry"
