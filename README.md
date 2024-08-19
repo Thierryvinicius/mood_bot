@@ -24,8 +24,11 @@ Este projeto foi desenvolvido usando Python 3.10 e requer várias bibliotecas pa
     ```
 
 3. **Configuração do dataset:**
-    vou escrever...
+    O código requer um arquivo de texto (.txt) com duas colunas: a primeira coluna, chamada Phrase, deve conter as frases, e a segunda coluna, chamada Note, deve ter valores 0 (para frases negativas) e 1 (para frases positivas).
 
+    Você pode ajustar o diretório de entrada e as configurações de divisão de validação e teste no arquivo config.py, localizado na pasta src.
+
+    Se o seu dataset não estiver no formato .txt, há uma função utilitária disponível em utils que pode converter um arquivo .csv para o formato .txt adequado. Essa função salva o arquivo convertido e o torna pronto para uso.
 
 4. **Execução do Treinamento:**
 

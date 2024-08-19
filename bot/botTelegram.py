@@ -1,13 +1,12 @@
 """
 Exemplo de um chatbot para Telegram
 
-Código disponibilizado por Karan Batra
-Alterações feitas por Hemerson Pistori (pistori@ucdb.br), principalmente a parte que trata de imagens.
+Código disponibilizado por Karan Batra e adaptado por Hemerson Pistori(pistori@ucdb.br) 
 
 Como executar:
 python botTelegram.py COPIE_AQUI_SEU_TOKEN
 
-Funcionalidade: repete as mensagens de texto que alguém envia para o seu chatbot e devolve duas estatísticas das imagens quando o usuário manda uma imagem.
+Funcionalidade: O bot analisa a mensagem enviada pelo usuário e identifica se é uma mensagem positiva ou negativa.
 """
 
 from PIL import Image,ImageStat
