@@ -15,9 +15,15 @@ import os
 import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import sys
+import torch
+import pickle
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from src.model import Net
 from src.config import INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE
-import pickle
+from src.inference import predict_sentiment
+
 
 # Lê o token como parâmetro na linha de comando
 # Você pode também trocar diretamente aqui sys.argv[1] pelo
@@ -29,7 +35,7 @@ print('Carregando BOT usando o token ',MEU_TOKEN)
 
 #Paths
 MODEL_PATH = '../src/models/text_classifier.pth'
-VECTOR_PATH = '..src/models/tfidf_vectorizer.pkl'
+VECTOR_PATH = '../src/models/tfidf_vectorizer.pkl'
 
 
 #Load the model
@@ -56,7 +62,7 @@ def echo(update, context):
     user_message = update.message.text
     sentiment = predict_sentiment(model,vectorizer, user_message)
     answer = f"A análise de sentimento para a mensagem é '{user_message}' é: '{sentiment}'"
-    update.message.reply_text(resposta)
+    update.message.reply_text(answer)
 
 # Resposta para o comando /start
 def start(update, context):
