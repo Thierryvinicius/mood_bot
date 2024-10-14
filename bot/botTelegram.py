@@ -37,8 +37,8 @@ else:
 print('Carregando BOT usando o token ',MEU_TOKEN)
 
 #Path
-MODEL_PATH = os.path.abspath('src/models/text_classifier.pth')
-VECTOR_PATH = os.path.abspath('src/models/tfidf_vectorizer.pkl')
+MODEL_PATH = os.path.abspath('../src/models/text_classifier.pth')
+VECTOR_PATH = os.path.abspath('../src/models/tfidf_vectorizer.pkl')
 
 
 #Load the model
