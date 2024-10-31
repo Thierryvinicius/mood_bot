@@ -1,5 +1,5 @@
 # Projeto de Analise de sentimentos usando IA
-Autores: Thierry Vinicius L. de Lima(ra188130@ucdb.br), Leonardo K. Ramos(ra184248@ucdb.br) e Pedro Eduardo F. Sampaio (ra186488@ucdb.br)
+Autores: Thierry Vinicius L. de Lima(ra188130@ucdb.br), Leonardo R. Lescano (ra186614@ucdb.br), Leonardo K. Ramos(ra184248@ucdb.br) e Pedro Eduardo F. Sampaio (ra186488@ucdb.br)
 
 Agradecemos ao Professor Hemerson Pistori (pistori@ucdb.br) pelo código base do bot do Telegram, que foi fundamental para o desenvolvimento deste projeto.
 
