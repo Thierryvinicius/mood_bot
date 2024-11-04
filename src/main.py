@@ -31,7 +31,7 @@ print(f'Número de características: {INPUT_SIZE}')
 y = dataset.iloc[:, 1].values
 
 # salvando o vectorizer
-VECTOR_PATH = os.path.join('src/models/', 'tfidf_vectorizer.pkl')
+VECTOR_PATH = os.path.join(os.getcwd(),"models", "tfidf_vectorizer.pkl")
 with open(VECTOR_PATH, 'wb') as f:
     pickle.dump(vectorizer, f)
 print('VETOR TF-IDF SALVO EM, ', VECTOR_PATH)
@@ -65,5 +65,3 @@ print(predict_sentiment(model, vectorizer, sample2))
 
 # Salvar o modelo e o vetor TF-IDF
 #torch.save(model.state_dict(), 'text_classifier_pytorch.pth')
-
-
