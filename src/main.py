@@ -24,7 +24,7 @@ else:
 corpus = preprocess_text(dataset)
 
 # Vetorização TF-IDF
-vectorizer = TfidfVectorizer(max_features=INPUT_SIZE, min_df=1, max_df=0.8)#voltar para 3 e 0.6 dps
+vectorizer = TfidfVectorizer(max_features=INPUT_SIZE, min_df=3, max_df=0.6)
 X = vectorizer.fit_transform(corpus).toarray()
 INPUT_SIZE = X.shape[1]
 print(f'Número de características: {INPUT_SIZE}')
