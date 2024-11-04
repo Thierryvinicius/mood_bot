@@ -1,4 +1,4 @@
-
+import os
 import torch
 import pickle
 import torch.nn as nn
@@ -6,7 +6,6 @@ import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
 from model import Net
 from config import *
-import matplotlib.pyplot as plt
 
 
 def train_model(model, X_train, y_train, X_val, y_val, epochs=EPOCHS, learning_rate=LEARNING_RATE):
@@ -32,7 +31,7 @@ def train_model(model, X_train, y_train, X_val, y_val, epochs=EPOCHS, learning_r
             val_accuracy = validate_model(model, X_val, y_val)
             print(f'Validation Accuracy: {val_accuracy*100:.2f}%')
             print('='*50)
-    MODEL_PATH = 'src/models/'
+    MODEL_PATH = os.path.join(os.getcwd(),"models")
     torch.save(model.state_dict(), MODEL_PATH + 'text_classifier.pth')
     print('MODELO SALVO EM ', MODEL_PATH)
 
