@@ -1,5 +1,5 @@
 #Configurações da rede
-INPUT_SIZE = 30 
+INPUT_SIZE = 467 
 HIDDEN_SIZE = 500
 OUTPUT_SIZE = 2
 
